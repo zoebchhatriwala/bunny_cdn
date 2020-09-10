@@ -53,16 +53,16 @@ module BunnyCDN
         :checksum => "",
       }
       begin
-        response = RestClient.put("#{set_region_url}/#{storageZone}/#{path}", File.read(file), headers)
+        response = RestClient.put("#{set_region_url}/#{storageZone}/#{path}", file, headers)
       rescue RestClient::ExceptionWithResponse => exception
         return exception
       end
       return response.body
     end
 
-    def self.deleteFile(path = "", file)
+    def self.deleteFile(path = "")
       begin
-        response = RestClient.delete("#{set_region_url}/#{storageZone}/#{path}/#{file}", headers)
+        response = RestClient.delete("#{set_region_url}/#{storageZone}/#{path}", headers)
       rescue RestClient::ExceptionWithResponse => exception
         return exception
       end
