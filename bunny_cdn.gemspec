@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "helpers/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "BunnyCDN"
+  spec.name = "bunny_cdn"
   spec.version = BunnyCDN::VERSION
   spec.date = "2020-09-10"
   spec.summary = "BunnyCDN Gem helps you connect with BunnyCDN API"
