@@ -1,28 +1,8 @@
-[![Gem Version](https://badge.fury.io/rb/bunny_cdn.svg)](https://badge.fury.io/rb/bunny_cdn)
-[![Codeship Status for brandon-meeks/bunny_cdn](https://app.codeship.com/projects/7f94a660-529a-0138-70bd-36e3badc0e07/status?branch=master)](https://app.codeship.com/projects/390509)
-[![Maintainability](https://api.codeclimate.com/v1/badges/2cc8e5b9529c32d7473f/maintainability)](https://codeclimate.com/github/brandon-meeks/bunny_cdn/maintainability)
+# BunnyCDN
 
-# BunnyCdn
-
-This gem allows you to interact with the BunnyCdn API. Currently you can interact with the Storage and Pullzone APIs.
+This gem allows you to interact with the BunnyCDN API. Currently you can interact with the Storage and PullZone APIs.
 
 This does require you to have an account with [BunnyCDN](https://bunnycdn.com/).
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'bunny_cdn'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install bunny_cdn
 
 ## Usage
 
@@ -31,7 +11,7 @@ Or install it yourself as:
 Create the initializer `config/initializers/bunny_cdn.rb` and set the configuration options.
 
 ```ruby
-BunnyCdn.configure do |config|
+BunnyCDN.configure do |config|
     config.apiKey = # The API key for your BunnyCDN account
     config.storageZone = # The storage zone you want to work with
     config.region = # the region of the storage zone. Options are 'eu' for Falkenstein, 'ny' for New York, or 'sg' for Asia
@@ -52,7 +32,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the BunnyCdn project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/bunny_cdn/blob/master/CODE_OF_CONDUCT.md).

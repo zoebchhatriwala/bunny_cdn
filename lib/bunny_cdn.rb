@@ -1,9 +1,9 @@
 require "rest-client"
 require "json"
-require "bunny_cdn/version"
-require_relative "bunny_cdn/configuration"
-require_relative "bunny_cdn/storage"
-require_relative "bunny_cdn/pullzone"
+require "helpers/version"
+require_relative "helpers/configuration"
+require_relative "helpers/storage"
+require_relative "helpers/pullzone"
 
-module BunnyCdn
+module BunnyCDN
 end

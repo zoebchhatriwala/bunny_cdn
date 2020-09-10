@@ -1,34 +1,33 @@
-module BunnyCdn
+module BunnyCDN
   class Storage
-    
     RestClient.log = STDOUT # enables RestClient logging
 
     def self.storageZone
-      BunnyCdn.configuration.storageZone
+      BunnyCDN.configuration.storageZone
     end
     # Sets the proper URL based on the region set in configuration
     def self.set_region_url
-      case BunnyCdn.configuration.region
-      when nil || 'eu'
-        'https://storage.bunnycdn.com'
-      when 'ny'
-        'https://ny.storage.bunnycdn.com'
-      when 'sg'
-        'https://sg.storage.bunnycdn.com'
+      case BunnyCDN.configuration.region
+      when nil || "eu"
+        "https://storage.bunnycdn.com"
+      when "ny"
+        "https://ny.storage.bunnycdn.com"
+      when "sg"
+        "https://sg.storage.bunnycdn.com"
       end
     end
-      
+
     def self.apiKey
-      BunnyCdn.configuration.accessKey
+      BunnyCDN.configuration.accessKey
     end
 
     def self.headers
       {
-        :accesskey => apiKey
+        :accesskey => apiKey,
       }
     end
 
-    def self.getZoneFiles(path= '')
+    def self.getZoneFiles(path = "")
       begin
         response = RestClient.get("#{set_region_url}/#{storageZone}/#{path}", headers)
       rescue RestClient::ExceptionWithResponse => exception
@@ -37,7 +36,7 @@ module BunnyCdn
       return response.body
     end
 
-    def self.getFile(path= '', file)
+    def self.getFile(path = "", file)
       begin
         response = RestClient.get("#{set_region_url}/#{storageZone}/#{path}/#{file}", headers)
       rescue RestClient::ExceptionWithResponse => exception
@@ -46,11 +45,11 @@ module BunnyCdn
       return response.body
     end
 
-    def self.uploadFile(path= '', file)
+    def self.uploadFile(path = "", file)
       fileName = File.basename(file)
       headers = {
         :accessKey => apiKey,
-        :checksum => ''
+        :checksum => "",
       }
       begin
         response = RestClient.put("#{set_region_url}/#{storageZone}/#{path}/#{fileName}", File.read(file), headers)
@@ -60,7 +59,7 @@ module BunnyCdn
       return response.body
     end
 
-    def self.deleteFile(path= '', file)
+    def self.deleteFile(path = "", file)
       begin
         response = RestClient.delete("#{set_region_url}/#{storageZone}/#{path}/#{file}", headers)
       rescue RestClient::ExceptionWithResponse => exception
@@ -68,6 +67,5 @@ module BunnyCdn
       end
       return response.body
     end
-
   end
 end

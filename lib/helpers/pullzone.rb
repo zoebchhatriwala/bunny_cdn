@@ -1,19 +1,18 @@
-module BunnyCdn
+module BunnyCDN
   class Pullzone
-
     RestClient.log = STDOUT # enables RestClient logging
 
-    BASE_URL = 'https://bunnycdn.com/api/pullzone'
+    BASE_URL = "https://bunnycdn.com/api/pullzone"
 
     def self.apiKey
-      @apiKey = BunnyCdn.configuration.apiKey
+      @apiKey = BunnyCDN.configuration.apiKey
     end
 
     def self.headers
       {
         :accesskey => apiKey,
-        :accept => 'application/json',
-        :content_type => 'application/json'
+        :accept => "application/json",
+        :content_type => "application/json",
       }
     end
 
@@ -30,7 +29,7 @@ module BunnyCdn
       values = {
         :name => name,
         :type => type,
-        :originUrl => originUrl
+        :originUrl => originUrl,
       }
       begin
         response = RestClient.post(BASE_URL, values.to_json, headers)
