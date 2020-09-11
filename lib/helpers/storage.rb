@@ -61,12 +61,15 @@ module BunnyCDN
     end
 
     def self.deleteFile(path = "")
-      begin
-        response = RestClient.delete("#{set_region_url}/#{storageZone}/#{path}", headers)
-      rescue RestClient::ExceptionWithResponse => exception
-        return exception
+      # If path is empty it deletes everything; Preventing it.
+      if path.present?
+        begin
+          response = RestClient.delete("#{set_region_url}/#{storageZone}/#{path}", headers)
+        rescue RestClient::ExceptionWithResponse => exception
+          return exception
+        end
+        return response.body
       end
-      return response.body
     end
   end
 end
