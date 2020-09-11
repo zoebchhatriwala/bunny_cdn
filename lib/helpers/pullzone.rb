@@ -3,6 +3,7 @@ module BunnyCDN
     RestClient.log = STDOUT # enables RestClient logging
 
     BASE_URL = "https://bunnycdn.com/api/pullzone"
+    BASE_URL_PURGE = "https://bunnycdn.com/api/purge"
 
     def self.apiKey
       @apiKey = BunnyCDN.configuration.apiKey
@@ -60,6 +61,15 @@ module BunnyCDN
     def self.purgeCache(id)
       begin
         response = RestClient.post("#{BASE_URL}/#{id}/purgeCache", {}.to_json, headers)
+      rescue RestClient::ExceptionWithResponse => exception
+        return exception
+      end
+      return response
+    end
+
+    def self.purgeCacheByURL(url)
+      begin
+        response = RestClient.post("#{BASE_URL_PURGE}/?url=#{url}", {}.to_json, headers)
       rescue RestClient::ExceptionWithResponse => exception
         return exception
       end
