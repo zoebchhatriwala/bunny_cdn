@@ -47,16 +47,18 @@ module BunnyCDN
       return response.body
     end
 
-    def self.uploadFile(path = "", file)
-      headers = {
-        :accessKey => apiKey,
-        :checksum => "",
-      }
+    def self.uploadFile(path = "", file = nil, headers = {})
+      # Base headers
+      headers[:accessKey] = apiKey
+      headers[:checksum] = ""
+
+      # Upload
       begin
         response = RestClient.put("#{set_region_url}/#{storageZone}/#{path}", file, headers)
       rescue RestClient::ExceptionWithResponse => exception
         return exception
       end
+
       return response.body
     end
 
