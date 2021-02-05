@@ -5,9 +5,10 @@ module BunnyCDN
     def self.storageZone
       BunnyCDN.configuration.storageZone
     end
+
     # Sets the proper URL based on the region set in configuration
-    def self.set_region_url
-      case BunnyCDN.configuration.region
+    def self.set_region_url(region = BunnyCDN.configuration.region)
+      case region
       when nil || "eu"
         "https://storage.bunnycdn.com"
       when "ny"
@@ -47,14 +48,26 @@ module BunnyCDN
       return response.body
     end
 
-    def self.uploadFile(path = "", file = nil, headers = {})
+    def self.uploadFile(path = "", file = nil, headers = {}, customConfig = nil)
+      # configuration
+      _apiKey = apiKey
+      _region_url = set_region_url
+      _storageZone = storageZone
+
+      # if customConfig is present
+      if customConfig != nil
+        _apiKey = customConfig.accessKey
+        _region_url = set_region_url(customConfig.region)
+        _storageZone = customConfig.storageZone
+      end
+
       # Base headers
-      headers[:accessKey] = apiKey
+      headers[:accessKey] = _apiKey
       headers[:checksum] = ""
 
       # Upload
       begin
-        response = RestClient.put("#{set_region_url}/#{storageZone}/#{path}", file, headers)
+        response = RestClient.put("#{_region_url}/#{_storageZone}/#{path}", file, headers)
       rescue RestClient::ExceptionWithResponse => exception
         return exception
       end
